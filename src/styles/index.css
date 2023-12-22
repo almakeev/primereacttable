@@ -1,3 +1,18 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+
+@layer base {
+    tr {
+       @apply border
+    }
+
+    td {
+        @apply border
+    }
+
+    th {
+        @apply border
+    }
+}

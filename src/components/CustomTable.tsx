@@ -13,7 +13,7 @@ const CustomTable = () => {
     // ProductService.getProductsMini().then((data) => setProducts(data));
   }, []);
   return (
-    <div className="card">
+    <div className={"overflow-x-auto shadow-md rounded-lg"}>
       <DataTable
         stripedRows
         value={products}
