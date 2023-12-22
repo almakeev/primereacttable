@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { ProductService } from "service/ProductService";
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { ProductService } from 'service/ProductService';
 
 const CustomTable = () => {
   const [products, setProducts] = useState([]);
@@ -13,11 +13,11 @@ const CustomTable = () => {
     // ProductService.getProductsMini().then((data) => setProducts(data));
   }, []);
   return (
-    <div className={"overflow-x-auto shadow-md rounded-lg"}>
+    <div className={'overflow-x-auto shadow-md rounded-lg'}>
       <DataTable
         stripedRows
         value={products}
-        tableStyle={{ minWidth: "50rem" }}
+        tableStyle={{ minWidth: '50rem' }}
         resizableColumns
         showGridlines
         reorderableColumns
