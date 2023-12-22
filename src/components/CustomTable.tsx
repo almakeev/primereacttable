@@ -20,11 +20,15 @@ const CustomTable = () => {
         tableStyle={{ minWidth: "50rem" }}
         resizableColumns
         showGridlines
+        reorderableColumns
+        paginator
+        rows={10}
+        rowsPerPageOptions={[5, 10, 15, 20]}
       >
-        <Column field="code" header="Code"></Column>
-        <Column field="name" header="Name"></Column>
-        <Column field="category" header="Category"></Column>
-        <Column field="quantity" header="Quantity"></Column>
+        <Column sortable field="code" header="Code"></Column>
+        <Column sortable field="name" header="Name"></Column>
+        <Column sortable field="category" header="Category"></Column>
+        <Column sortable field="quantity" header="Quantity"></Column>
       </DataTable>
     </div>
   );
