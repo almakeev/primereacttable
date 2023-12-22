@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-import { DataTable } from 'primereact/datatable';
+import { DataTable, DataTableCellSelection } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { ProductService } from 'service/ProductService';
 
 const CustomTable = () => {
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] =
+    useState<DataTableCellSelection<any>>();
 
   useEffect(() => {
     // @ts-ignore
@@ -24,6 +26,9 @@ const CustomTable = () => {
         paginator
         rows={10}
         rowsPerPageOptions={[5, 10, 15, 20]}
+        selectionMode={'single'}
+        selection={selectedProduct}
+        onSelectionChange={(e) => setSelectedProduct(e.value)}
       >
         <Column sortable field="code" header="Code"></Column>
         <Column sortable field="name" header="Name"></Column>
