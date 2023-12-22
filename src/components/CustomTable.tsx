@@ -21,7 +21,6 @@ const CustomTable = () => {
         value={products}
         tableStyle={{ minWidth: '50rem' }}
         resizableColumns
-        showGridlines
         reorderableColumns
         paginator
         rows={10}
