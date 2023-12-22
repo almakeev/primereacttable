@@ -1,10 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "styles/index.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css"; // theme
 import "primereact/resources/primereact.css"; // core css
-import "styles/index.css";
 import { PrimeReactProvider } from "primereact/api";
 
 const root = ReactDOM.createRoot(
