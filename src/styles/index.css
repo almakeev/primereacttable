@@ -14,4 +14,8 @@
   th {
     @apply border;
   }
+
+  input {
+    @apply p-2
+  }
 }
