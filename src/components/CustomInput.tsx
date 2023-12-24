@@ -23,6 +23,7 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
 
     if (event.key === 'Escape' || event.key === 'Esc') {
       setValue(data[options.field]);
+      setIsOpen(false);
     }
   };
 
@@ -33,6 +34,7 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
   const outsideClick = (event: MouseEvent) => {
     if (myInput.current && !myInput.current.contains(event.target as Node)) {
       setIsOpen(false);
+      setValue(data[options.field]);
     }
   };
 
