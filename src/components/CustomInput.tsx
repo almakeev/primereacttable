@@ -40,6 +40,7 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
 
   const outsideClick = (event: MouseEvent) => {
     if (myInput.current && !myInput.current.contains(event.target as Node)) {
+      setIsValid(true);
       setIsOpen(false);
       setValue(data[options.field]);
     }
@@ -78,7 +79,10 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
     );
 
   return (
-    <div onClick={(event) => event.stopPropagation()}>
+    <div
+      className={'flex flex-col'}
+      onClick={(event) => event.stopPropagation()}
+    >
       <InputText
         className={classNames({ 'p-invalid': !isValid })}
         onKeyDown={onEnter}
@@ -87,6 +91,7 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
         value={value}
         onChange={(event) => setValue(event.target.value)}
       />
+      {isValid || 'Заполните поле'}
     </div>
   );
 };

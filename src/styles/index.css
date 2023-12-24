@@ -18,4 +18,8 @@
   input {
     @apply p-2
   }
+
+  .p-invalid {
+    @apply border border-red-400
+  }
 }
