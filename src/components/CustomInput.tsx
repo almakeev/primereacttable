@@ -29,11 +29,13 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
   }, [isOpen]);
 
   useEffect(() => {
-    window.addEventListener('mousedown', outsideClick, true);
+    if (myInput.current) {
+      window.addEventListener('mousedown', outsideClick, true);
 
-    return () => {
-      window.removeEventListener('mousedown', outsideClick);
-    };
+      return () => {
+        window.removeEventListener('mousedown', outsideClick);
+      };
+    }
   }, [isOpen]);
 
   if (!isOpen)
