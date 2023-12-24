@@ -16,7 +16,6 @@ const CustomTable = () => {
 
   useEffect(() => {
     ProductService.getProducts().then((data) => setProducts(data));
-    // ProductService.getProductsMini().then((data) => setProducts(data));
   }, []);
 
   const handleChangeCode = (id: string, code: string) => {
