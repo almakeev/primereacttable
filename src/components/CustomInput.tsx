@@ -16,9 +16,9 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
   const [value, setValue] = useState('');
 
   const onEnter = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter') {
-      console.log('enter');
+    if (event.key === 'Enter' && value) {
       handleChange(data.id, value);
+      setIsOpen(false);
     }
 
     if (event.key === 'Escape' || event.key === 'Esc') {
@@ -73,7 +73,7 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
   return (
     <div onClick={(event) => event.stopPropagation()}>
       <InputText
-        onKeyPress={onEnter}
+        onKeyDown={onEnter}
         ref={myInput}
         type="text"
         value={value}
