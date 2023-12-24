@@ -66,13 +66,15 @@ const CustomTable = () => {
           key={'id'}
           field={'id'}
           header={'id'}
-          style={{ width: '25%' }}
+          sortable
+          style={{ width: '5%' }}
         ></Column>
         <Column
           key={'code'}
           field={'code'}
           header={'code'}
-          style={{ width: '25%' }}
+          style={{ width: '5%' }}
+          sortable
           body={(data, options) => (
             <CustomInput
               data={data}
@@ -85,7 +87,8 @@ const CustomTable = () => {
           key={'name'}
           field={'name'}
           header={'name'}
-          style={{ width: '25%' }}
+          style={{ width: '15%' }}
+          sortable
           body={(data, options) => (
             <CustomInput
               options={options}
