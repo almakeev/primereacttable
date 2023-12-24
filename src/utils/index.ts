@@ -1,14 +1,7 @@
-export const isPositiveInteger = (val: string) => {
-  let str = String(val);
-
-  str = str.trim();
-
-  if (!str) {
+export const isPositiveNumber = (val: string) => {
+  const trimmedStr = val.trim();
+  if (!trimmedStr) {
     return false;
   }
-
-  str = str.replace(/^0+/, '') || '0';
-  const n = Math.floor(Number(str));
-
-  return n !== Infinity && String(n) === str && n >= 0;
+  return !Number.isNaN(+trimmedStr) && +trimmedStr > 0;
 };
