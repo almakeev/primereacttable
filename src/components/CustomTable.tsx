@@ -15,8 +15,6 @@ const CustomTable = () => {
     useState<DataTableCellSelection<Product[]>>();
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     ProductService.getProducts().then((data) => setProducts(data));
     // ProductService.getProductsMini().then((data) => setProducts(data));
   }, []);
