@@ -35,7 +35,7 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
 
   if (!isOpen)
     return (
-      <button className={'p-2'} onDoubleClick={handleClick}>
+      <button className={'p-2 w-full flex'} onDoubleClick={handleClick}>
         {data[options.field]}
       </button>
     );
