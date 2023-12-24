@@ -22,7 +22,6 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
     if (myInput.current && !myInput.current.contains(event.target as Node)) {
       setIsOpen(false);
     }
-    
   };
 
   useEffect(() => {
