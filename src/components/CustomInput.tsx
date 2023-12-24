@@ -18,8 +18,11 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
     setIsOpen(true);
   };
 
-  const outsideClick = () => {
-    setIsOpen(false);
+  const outsideClick = (event: MouseEvent) => {
+    if (myInput.current && !myInput.current.contains(event.target as Node)) {
+      setIsOpen(false);
+    }
+    
   };
 
   useEffect(() => {
