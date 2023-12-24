@@ -6,7 +6,7 @@ import {
   DataTableCellSelection,
   DataTableSelectionSingleChangeEvent,
 } from 'primereact/datatable';
-import { Column, ColumnBodyOptions } from 'primereact/column';
+import { Column } from 'primereact/column';
 import { Product, ProductService } from 'service/ProductService';
 
 const CustomTable = () => {
@@ -14,15 +14,7 @@ const CustomTable = () => {
   const [selectedProduct, setSelectedProduct] =
     useState<DataTableCellSelection<Product[]>>();
 
-  const textEditor = (
-    data: Product,
-    options: ColumnBodyOptions,
-    handleChange: (id: string, value: string) => void
-  ) => {
-    return (
-      <CustomInput options={options} data={data} handleChange={handleChange} />
-    );
-  };
+
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -33,27 +25,13 @@ const CustomTable = () => {
 
   const handleChangeCode = (id: string, code: string) => {
     setProducts((prevState) => {
-      if (prevState) {
-        return prevState.map((item) => {
-          if (item.id === id) {
-            return { ...item, code };
-          }
-          return item;
-        });
-      }
+      return prevState?.map((item) => (item.id === id ? { ...item, code } : item));
     });
   };
 
   const handleChangeName = (id: string, name: string) => {
     setProducts((prevState) => {
-      if (prevState) {
-        return prevState.map((item) => {
-          if (item.id === id) {
-            return { ...item, name };
-          }
-          return item;
-        });
-      }
+      return prevState?.map((item) => (item.id === id ? { ...item, name } : item));
     });
   };
 
@@ -85,15 +63,14 @@ const CustomTable = () => {
           field={'code'}
           header={'code'}
           style={{ width: '25%' }}
-          body={(data, options) => textEditor(data, options, handleChangeCode)}
+          body={(data, options) => <CustomInput options={options} data={data} handleChange={handleChangeCode} />}
         ></Column>
         <Column
           key={'name'}
           field={'name'}
           header={'name'}
           style={{ width: '25%' }}
-          body={(data, options) => textEditor(data, options, handleChangeName)}
-        ></Column>
+          body={(data, options) =><CustomInput options={options} data={data} handleChange={handleChangeName} />} />
       </DataTable>
     </div>
   );
