@@ -12,7 +12,19 @@ interface ICustomInputProps {
 const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const myInput = useRef<HTMLInputElement | null>(null);
-  const myButton = useRef<HTMLButtonElement | null>(null);
+  const myButton = useRef<HTMLDivElement | null>(null);
+  const [value, setValue] = useState('');
+
+  const onEnter = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      console.log('enter');
+      handleChange(data.id, value);
+    }
+
+    if (event.key === 'Escape' || event.key === 'Esc') {
+      setValue(data[options.field]);
+    }
+  };
 
   const handleDoubleClick = () => {
     setIsOpen(true);
@@ -23,6 +35,11 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
       setIsOpen(false);
     }
   };
+
+  useEffect(() => {
+    setValue(data[options.field]);
+    console.log('parent');
+  }, [data]);
 
   useEffect(() => {
     if (isOpen) {
@@ -42,23 +59,23 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
 
   if (!isOpen)
     return (
-      <button
+      <div
         className={'p-2 w-full flex'}
         ref={myButton}
         onDoubleClick={handleDoubleClick}
-        onClick={(event) => event.preventDefault()}
       >
         {data[options.field]}
-      </button>
+      </div>
     );
 
   return (
     <div onClick={(event) => event.stopPropagation()}>
       <InputText
+        onKeyPress={onEnter}
         ref={myInput}
         type="text"
-        value={data[options.field]}
-        onChange={(event) => handleChange(data.id, event.target.value)}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
       />
     </div>
   );
