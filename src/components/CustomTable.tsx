@@ -1,5 +1,4 @@
-import priceEditor from 'components/PriceEditor';
-import textEditor from 'components/TextEditor';
+import CustomInput from 'components/CustomInput';
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -7,21 +6,23 @@ import {
   DataTableCellSelection,
   DataTableSelectionSingleChangeEvent,
 } from 'primereact/datatable';
-import { Column, ColumnEditorOptions, ColumnEvent } from 'primereact/column';
-import { ProductService } from 'service/ProductService';
-import { isPositiveInteger } from 'utils';
-
-const columns = [
-  { field: 'code', header: 'Code' },
-  { field: 'name', header: 'Name' },
-  { field: 'quantity', header: 'Quantity' },
-  { field: 'price', header: 'Price' },
-];
+import { Column, ColumnBodyOptions } from 'primereact/column';
+import { Product, ProductService } from 'service/ProductService';
 
 const CustomTable = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[] | undefined>([]);
   const [selectedProduct, setSelectedProduct] =
-    useState<DataTableCellSelection<never[]>>();
+    useState<DataTableCellSelection<Product[]>>();
+
+  const textEditor = (
+    data: Product,
+    options: ColumnBodyOptions,
+    handleChange: (id: string, value: string) => void
+  ) => {
+    return (
+      <CustomInput options={options} data={data} handleChange={handleChange} />
+    );
+  };
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -30,26 +31,30 @@ const CustomTable = () => {
     // ProductService.getProductsMini().then((data) => setProducts(data));
   }, []);
 
-  const onCellEditComplete = (e: ColumnEvent) => {
-    const { rowData, newValue, field, originalEvent: event } = e;
-
-    switch (field) {
-      case 'quantity':
-      case 'price':
-        if (isPositiveInteger(newValue)) rowData[field] = newValue;
-        else event.preventDefault();
-        break;
-
-      default:
-        if (newValue.trim().length > 0) rowData[field] = newValue;
-        else event.preventDefault();
-        break;
-    }
+  const handleChangeCode = (id: string, code: string) => {
+    setProducts((prevState) => {
+      if (prevState) {
+        return prevState.map((item) => {
+          if (item.id === id) {
+            return { ...item, code };
+          }
+          return item;
+        });
+      }
+    });
   };
 
-  const cellEditor = (options: ColumnEditorOptions) => {
-    if (options.field === 'price') return priceEditor(options);
-    return textEditor(options);
+  const handleChangeName = (id: string, name: string) => {
+    setProducts((prevState) => {
+      if (prevState) {
+        return prevState.map((item) => {
+          if (item.id === id) {
+            return { ...item, name };
+          }
+          return item;
+        });
+      }
+    });
   };
 
   return (
@@ -69,18 +74,26 @@ const CustomTable = () => {
           setSelectedProduct(e.value)
         }
       >
-        {columns.map(({ field, header }) => {
-          return (
-            <Column
-              key={field}
-              field={field}
-              header={header}
-              style={{ width: '25%' }}
-              editor={(options) => cellEditor(options)}
-              onCellEditComplete={onCellEditComplete}
-            />
-          );
-        })}
+        <Column
+          key={'id'}
+          field={'id'}
+          header={'id'}
+          style={{ width: '25%' }}
+        ></Column>
+        <Column
+          key={'code'}
+          field={'code'}
+          header={'code'}
+          style={{ width: '25%' }}
+          body={(data, options) => textEditor(data, options, handleChangeCode)}
+        ></Column>
+        <Column
+          key={'name'}
+          field={'name'}
+          header={'name'}
+          style={{ width: '25%' }}
+          body={(data, options) => textEditor(data, options, handleChangeName)}
+        ></Column>
       </DataTable>
     </div>
   );

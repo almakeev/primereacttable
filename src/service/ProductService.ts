@@ -1,3 +1,20 @@
+interface ProductIndex {
+  [key: string]: any;
+}
+
+export interface Product extends ProductIndex {
+  id: string;
+  code: string;
+  name: string;
+  description: string;
+  image: string;
+  price: number;
+  category: string;
+  quantity: number;
+  inventoryStatus: string;
+  rating: number;
+}
+
 export const ProductService = {
   getProductsData() {
     return [
