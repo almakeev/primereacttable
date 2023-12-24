@@ -12,8 +12,9 @@ interface ICustomInputProps {
 const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const myInput = useRef<HTMLInputElement | null>(null);
+  const myButton = useRef<HTMLButtonElement | null>(null);
 
-  const handleClick = () => {
+  const handleDoubleClick = () => {
     setIsOpen(true);
   };
 
@@ -28,26 +29,34 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
   }, [isOpen]);
 
   useEffect(() => {
-    window.addEventListener('click', outsideClick);
+    window.addEventListener('mousedown', outsideClick, true);
 
-    return () => window.removeEventListener('click', outsideClick);
-  }, []);
+    return () => {
+      window.removeEventListener('mousedown', outsideClick);
+    };
+  }, [isOpen]);
 
   if (!isOpen)
     return (
-      <button className={'p-2 w-full flex'} onDoubleClick={handleClick}>
+      <button
+        className={'p-2 w-full flex'}
+        ref={myButton}
+        onDoubleClick={handleDoubleClick}
+        onClick={(event) => event.preventDefault()}
+      >
         {data[options.field]}
       </button>
     );
 
   return (
-    <InputText
-      onClick={(event) => event.stopPropagation()}
-      ref={myInput}
-      type="text"
-      value={data[options.field]}
-      onChange={(event) => handleChange(data.id, event.target.value)}
-    />
+    <div onClick={(event) => event.stopPropagation()}>
+      <InputText
+        ref={myInput}
+        type="text"
+        value={data[options.field]}
+        onChange={(event) => handleChange(data.id, event.target.value)}
+      />
+    </div>
   );
 };
 
