@@ -1,14 +1,7 @@
-import { ColumnBodyOptions } from 'primereact/column';
+import { ICustomInputProps } from 'components/types';
 import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
 import React, { useEffect, useRef, useState } from 'react';
-import { Product } from 'service/ProductService';
-
-interface ICustomInputProps {
-  data: Product;
-  options: ColumnBodyOptions;
-  handleChange: (id: string, value: string) => void;
-}
 
 const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,9 +12,9 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
 
   const onEnter = (event: React.KeyboardEvent) => {
     if (event.key === 'Enter') {
-      if (value) {
+      if (value.trim() !== '') {
         setIsValid(true);
-        handleChange(data.id, value);
+        handleChange(data.id, { [options.field]: value.trim() });
         setIsOpen(false);
       } else {
         setIsValid(false);
@@ -48,7 +41,6 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
 
   useEffect(() => {
     setValue(data[options.field]);
-    console.log('parent');
   }, [data]);
 
   useEffect(() => {
