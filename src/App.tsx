@@ -4,7 +4,7 @@ import 'styles/index.css';
 
 function App() {
   return (
-    <div className={'p-4 m-2 container'}>
+    <div className={'p-4 flex '}>
       <CustomTable />
     </div>
   );

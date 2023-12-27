@@ -3,7 +3,12 @@ import { InputText } from 'primereact/inputtext';
 import { classNames } from 'primereact/utils';
 import React, { useEffect, useRef, useState } from 'react';
 
-const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
+const CustomInput = ({
+  data,
+  options,
+  handleChange,
+  placeholder,
+}: ICustomInputProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const myInput = useRef<HTMLInputElement | null>(null);
   const myButton = useRef<HTMLDivElement | null>(null);
@@ -66,7 +71,7 @@ const CustomInput = ({ data, options, handleChange }: ICustomInputProps) => {
         ref={myButton}
         onDoubleClick={handleDoubleClick}
       >
-        {data[options.field]}
+        {placeholder}
       </div>
     );
 

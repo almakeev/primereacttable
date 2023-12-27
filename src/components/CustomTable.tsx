@@ -9,7 +9,7 @@ import {
   DataTableCellSelection,
   DataTableSelectionSingleChangeEvent,
 } from 'primereact/datatable';
-import { Column } from 'primereact/column';
+import { Column, ColumnBodyOptions } from 'primereact/column';
 import { Product, ProductService } from 'service/ProductService';
 
 const CustomTable = () => {
@@ -57,6 +57,36 @@ const CustomTable = () => {
     );
   };
 
+  const imageBodyTemplate = (product: Product) => {
+    return (
+      <img
+        src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`}
+        alt={product.image}
+        className="shadow-md h-24 min-w-32"
+      />
+    );
+  };
+
+  const formatCurrency = (value: number) => {
+    return value.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    });
+  };
+
+  const priceBodyTemplate = (data: Product, options: ColumnBodyOptions) => {
+    const price = formatCurrency(data.price);
+
+    return (
+      <CustomInput
+        data={data}
+        options={options}
+        handleChange={handleChangeValue}
+        placeholder={price}
+      />
+    );
+  };
+
   const handleChangeValue = (id: string, value: TextChangeValue) => {
     setProducts((prevState) => {
       if (prevState) {
@@ -72,13 +102,12 @@ const CustomTable = () => {
   if (isLoading) return <div>Loading</div>;
 
   return (
-    <div className={'card p-fluid shadow-md rounded-lg'}>
+    <div className={'p-fluid shadow-md rounded-lg'}>
       <DataTable
         stripedRows
         value={products}
         tableStyle={{ minWidth: '50rem' }}
         resizableColumns
-        reorderableColumns
         paginator
         rows={10}
         filters={filters}
@@ -92,23 +121,17 @@ const CustomTable = () => {
         header={header}
         emptyMessage="No customers found."
       >
-        <Column
-          key={'id'}
-          field={'id'}
-          header={'id'}
-          sortable
-          style={{ width: '5%' }}
-        ></Column>
+        <Column key={'id'} field={'id'} header={'id'} sortable></Column>
         <Column
           key={'code'}
           field={'code'}
           header={'code'}
-          style={{ width: '5%' }}
           sortable
           filter
           filterPlaceholder="Search by code"
           body={(data, options) => (
             <CustomInput
+              placeholder={data[options.field]}
               data={data}
               options={options}
               handleChange={handleChangeValue}
@@ -119,12 +142,12 @@ const CustomTable = () => {
           key={'name'}
           field={'name'}
           header={'name'}
-          style={{ width: '15%' }}
           sortable
           filter
           filterPlaceholder="Search by name"
           body={(data, options) => (
             <CustomInput
+              placeholder={data[options.field]}
               options={options}
               data={data}
               handleChange={handleChangeValue}
@@ -135,10 +158,74 @@ const CustomTable = () => {
           key={'description'}
           field={'description'}
           header={'description'}
-          style={{ width: '15%' }}
           sortable
           body={(data, options) => (
             <CustomInput
+              placeholder={data[options.field]}
+              options={options}
+              data={data}
+              handleChange={handleChangeValue}
+            />
+          )}
+        ></Column>
+        <Column header={'image'} body={imageBodyTemplate}></Column>
+        <Column
+          key={'price'}
+          field={'price'}
+          header={'price'}
+          sortable
+          body={priceBodyTemplate}
+        ></Column>
+        <Column
+          key={'category'}
+          field={'category'}
+          header={'category'}
+          sortable
+          body={(data, options) => (
+            <CustomInput
+              placeholder={data[options.field]}
+              options={options}
+              data={data}
+              handleChange={handleChangeValue}
+            />
+          )}
+        ></Column>
+        <Column
+          key={'quantity'}
+          field={'quantity'}
+          header={'quantity'}
+          sortable
+          body={(data, options) => (
+            <CustomInput
+              placeholder={data[options.field]}
+              options={options}
+              data={data}
+              handleChange={handleChangeValue}
+            />
+          )}
+        ></Column>
+        <Column
+          key={'inventoryStatus'}
+          field={'inventoryStatus'}
+          header={'inventory status'}
+          sortable
+          body={(data, options) => (
+            <CustomInput
+              placeholder={data[options.field]}
+              options={options}
+              data={data}
+              handleChange={handleChangeValue}
+            />
+          )}
+        ></Column>
+        <Column
+          key={'rating'}
+          field={'rating'}
+          header={'rating'}
+          sortable
+          body={(data, options) => (
+            <CustomInput
+              placeholder={data[options.field]}
               options={options}
               data={data}
               handleChange={handleChangeValue}
