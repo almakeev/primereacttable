@@ -22,4 +22,5 @@
   .p-invalid {
     @apply border border-red-400
   }
+
 }
