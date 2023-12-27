@@ -16,9 +16,13 @@ const CustomTable = () => {
   const [products, setProducts] = useState<Product[] | undefined>([]);
   const [selectedProduct, setSelectedProduct] =
     useState<DataTableCellSelection<Product[]>>();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    ProductService.getProducts().then((data) => setProducts(data));
+    ProductService.getProducts().then((data) => {
+      setIsLoading(false);
+      setProducts(data);
+    });
   }, []);
 
   const [filters, setFilters] = useState({
@@ -64,6 +68,8 @@ const CustomTable = () => {
   };
 
   const header = renderHeader();
+
+  if (isLoading) return <div>Loading</div>;
 
   return (
     <div className={'card p-fluid shadow-md rounded-lg'}>
@@ -113,6 +119,22 @@ const CustomTable = () => {
           key={'name'}
           field={'name'}
           header={'name'}
+          style={{ width: '15%' }}
+          sortable
+          filter
+          filterPlaceholder="Search by name"
+          body={(data, options) => (
+            <CustomInput
+              options={options}
+              data={data}
+              handleChange={handleChangeValue}
+            />
+          )}
+        ></Column>
+        <Column
+          key={'description'}
+          field={'description'}
+          header={'description'}
           style={{ width: '15%' }}
           sortable
           body={(data, options) => (
