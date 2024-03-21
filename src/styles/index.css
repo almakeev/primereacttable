@@ -16,11 +16,10 @@
   }
 
   input {
-    @apply p-2
+    @apply p-2;
   }
 
   .p-invalid {
-    @apply border border-red-400
+    @apply border border-red-400;
   }
-
 }

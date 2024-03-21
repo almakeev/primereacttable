@@ -151,7 +151,7 @@ const CustomTable = () => {
       <img
         src={`https://primefaces.org/cdn/primereact/images/product/${product.image}`}
         alt={product.image}
-        className="shadow-md h-24 min-w-32"
+        className="shadow-md min-w-24"
       />
     );
   };
@@ -209,7 +209,13 @@ const CustomTable = () => {
         emptyMessage="No customers found."
         loading={isLoading}
       >
-        <Column key={'id'} field={'id'} header={'id'} sortable></Column>
+        <Column
+          align={'center'}
+          key={'id'}
+          field={'id'}
+          header={'id'}
+          sortable
+        ></Column>
         <Column
           key={'code'}
           field={'code'}
