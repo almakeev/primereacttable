@@ -3,23 +3,23 @@
 @import 'tailwindcss/utilities';
 
 @layer base {
-  tr {
-    @apply border;
-  }
+    tr {
+        @apply border;
+    }
 
-  td {
-    @apply border p-1 text-sm;
-  }
+    td {
+        @apply border p-2 text-sm;
+    }
 
-  th {
-    @apply border;
-  }
+    th {
+        @apply border;
+    }
 
-  input {
-    @apply p-2;
-  }
+    input {
+        @apply p-2;
+    }
 
-  .p-invalid {
-    @apply border border-red-400;
-  }
+    .p-invalid {
+        @apply border border-red-400;
+    }
 }
