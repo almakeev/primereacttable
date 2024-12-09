@@ -8,7 +8,7 @@
     }
 
     td {
-        @apply border p-2 text-sm;
+        @apply border p-1 text-sm;
     }
 
     th {

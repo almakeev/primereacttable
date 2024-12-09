@@ -16,7 +16,7 @@ export interface Product extends ProductIndex {
 }
 
 export const ProductService = {
-    getProductsData() {
+    getProductsData(): Product[] {
         return [
             {
                 id: '1000',
